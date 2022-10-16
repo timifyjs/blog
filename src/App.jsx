@@ -1,15 +1,47 @@
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Write from "./pages/Write";
 import Single from "./pages/Single";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
+
+const Layout = () => {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/post/:id",
+        element: <Single />,
+      },
+      {
+        path: "/write",
+        element: <Write />,
+      },
+    ],
   },
   {
     path: "/register",
@@ -19,20 +51,14 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/write",
-    element: <Write />,
-  },
-  {
-    path: "/single",
-    element: <Single />,
-  },
 ]);
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <Box className="App">
+      <Box className="container">
+        <RouterProvider router={router} />
+      </Box>
+    </Box>
   );
 }
 
