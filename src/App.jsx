@@ -55,7 +55,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Box className="App">
-      <Box className="container">
+      <Box className="container" background="#f4f6f8">
         <RouterProvider router={router} />
       </Box>
     </Box>
