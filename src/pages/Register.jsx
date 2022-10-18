@@ -71,7 +71,7 @@ const Register = () => {
           w="full"
           mt="20px"
         >
-          Login
+          Register
         </Button>
         <Text textAlign="center">
           Already have an Account?{" "}
