@@ -18,9 +18,10 @@ const Footer = () => {
       <Box mt={3} align="center">
         <Heading fontSize="xs" display="flex">
           © 2022 All rights reserved. Made with
-          <Box as="span" ml={1} align="center" mt="3px">
+          <Box as="span" mx={1} align="center" mt="3px">
             <BsFillHeartFill color="red" />
           </Box>
+          and React.js
         </Heading>
       </Box>
     </Flex>
