@@ -1,11 +1,19 @@
-import { Box, Button, Heading, Image } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Image,
+  Link,
+} from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 const Home = () => {
   const posts = [
     {
       id: 1,
       title: "Title Will be here",
-      desc: "Description will be here",
+      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not ke Aldus PageMaker including versions of Lorem Ipsum.  into electronic type",
       img: "/image1.jpg",
     },
     {
@@ -30,22 +38,45 @@ const Home = () => {
   return (
     // @delete className
     <Box color="red.400" mt="10px" className="home">
-      <Box className="post">
+      <Flex flexDir="column" className="post" mt="50px" gap="50px">
         {posts.map((post) => (
-          <Box key={post.id}>
-            <Box>
-              <Image src={post.img} />
+          <Flex key={post.id} gap="50px" _odd={{ flexDir: "row-reverse" }}>
+            <Box
+              w="34%"
+              pos="relative"
+              _before={{
+                content: '""',
+                backgroundColor: "#008080",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: "20px",
+                left: "-20px",
+                zIndex: "-1",
+              }}
+            >
+              <Image
+                src={post.img}
+                w="100%"
+                maxH="250px"
+                objectFit="cover"
+                // zIndex={2}
+              />
             </Box>
-            <Box>
-              <Link to={`/post/${post.id}`}>
-                <Heading as="h1">{post.title}</Heading>
-                <Box as="p">{post.desc}</Box>
-                <Button>Read More</Button>
+            <Flex flexDir="column" gap="20px" w="66%" justify="space-between">
+              <Link as={RouterLink} to={`/post/${post.id}`}>
+                <Heading as="h1" fontSize="3xl">
+                  {post.title}
+                </Heading>
               </Link>
-            </Box>
-          </Box>
+              <Box as="p">{post.desc}</Box>
+              <Button w="110px" variant="outline" colorScheme="red">
+                Read More
+              </Button>
+            </Flex>
+          </Flex>
         ))}
-      </Box>
+      </Flex>
     </Box>
   );
 };
