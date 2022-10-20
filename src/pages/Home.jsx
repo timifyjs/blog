@@ -44,7 +44,7 @@ const Home = () => {
             <Box
               w="34%"
               pos="relative"
-              _before={{
+              _after={{
                 content: '""',
                 backgroundColor: "#008080",
                 width: "100%",
@@ -55,21 +55,17 @@ const Home = () => {
                 zIndex: "-1",
               }}
             >
-              <Image
-                src={post.img}
-                w="100%"
-                maxH="250px"
-                objectFit="cover"
-                // zIndex={2}
-              />
+              <Image src={post.img} w="100%" maxH="250px" objectFit="cover" />
             </Box>
             <Flex flexDir="column" gap="20px" w="66%" justify="space-between">
               <Link as={RouterLink} to={`/post/${post.id}`}>
-                <Heading as="h1" fontSize="3xl">
+                <Heading as="h1" fontSize="40px">
                   {post.title}
                 </Heading>
               </Link>
-              <Box as="p">{post.desc}</Box>
+              <Box as="p" fontSize="18px">
+                {post.desc}
+              </Box>
               <Button w="110px" variant="outline" colorScheme="red">
                 Read More
               </Button>
