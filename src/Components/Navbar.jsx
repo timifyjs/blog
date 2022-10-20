@@ -23,12 +23,7 @@ const Navbar = () => {
   const [placement, setPlacement] = useState("right");
   return (
     <>
-      <Flex
-        justify="space-between"
-        align="center"
-        py={4}
-        border="1px solid black"
-      >
+      <Flex justify="space-between" align="center" py={4}>
         {/* left */}
         <Box>
           <Heading as="h1">Logo</Heading>
