@@ -1,7 +1,10 @@
 import { Box, Flex, Heading, Button, Image } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useRoutes } from "react-router-dom";
 
 const Menu = () => {
+
+  const currLocation = useLocation();
+  const currPost = currLocation.pathname.split('/')[2]
   const posts = [
     {
       id: 1,
@@ -28,12 +31,14 @@ const Menu = () => {
       img: "/image4.jpg",
     },
   ];
+  const filterdPosts = posts.filter(post=>post.id !=currPost)
   return (
     <Box display="flex" flexDir="column" gap="20px">
       <Heading as="h1" fontSize="24px" fontWeight="bold" noOfLines={1}>
         Other posts you may like
       </Heading>
-      {posts.map((post) => (
+      {filterdPosts.map((post) => (
+        
         <Flex flexDir="column" gap="10px" mb="1rem">
           <Box>
             <Image
