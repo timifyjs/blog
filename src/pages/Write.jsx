@@ -16,7 +16,9 @@ import {
   ModalHeader,
   ModalOverlay,
   Radio,
+  RadioGroup,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { Editor } from "@tinymce/tinymce-react";
 
@@ -25,6 +27,7 @@ import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 
 const Write = () => {
   const [isPreviewing, setIsPreviewing] = useState(false);
+  const [category, setCategory] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const editorRef = useRef(null);
@@ -112,22 +115,24 @@ const Write = () => {
             <Heading fontSize="24px" as="h1">
               Category | Tags
             </Heading>
-            <Radio value="3">Art</Radio>
-            <Radio value="3">Science</Radio>
-            <Radio value="3">Technology</Radio>
-            <Radio value="3">Food</Radio>
-            <Radio value="3">Design</Radio>
+            <RadioGroup onChange={setCategory} value={category}>
+                <Radio value="art">Art</Radio>
+                <Radio value="science">Science</Radio>
+                <Radio value="tech">Technology</Radio>
+                <Radio value="food">Food</Radio>
+                <Radio value="design">Design</Radio>
+            </RadioGroup>
           </Flex>
         </Flex>
       </Flex>
       {isOpen &&
         <Modal isOpen={isOpen} onClose={onClose}
-          >
+        >
           <ModalOverlay style={{ backdropFilter: 'blur(2px)' }} />
           <ModalContent
-          w="90vw"
-          h={'80vh'}
-          maxW={'6xl'}
+            w="90vw"
+            h={'80vh'}
+            maxW={'6xl'}
           >
             <ModalHeader>Blog Preview</ModalHeader>
             <ModalCloseButton />
