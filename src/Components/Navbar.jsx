@@ -100,7 +100,7 @@ const Navbar = () => {
       </Flex>
 
       <Drawer placement={placement} onClose={onClose} isOpen={isOpen} size="sm">
-        <DrawerOverlay />
+        <DrawerOverlay style={{ backdropFilter: "blur(5px)" }} />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">
             <IconButton
