@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -10,11 +10,17 @@ import {
   Input,
   Radio,
 } from "@chakra-ui/react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Editor } from "@tinymce/tinymce-react";
+
+import "../index.css";
+import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 
 const Write = () => {
   const [value, setValue] = useState("");
+  const [isPreviewing, setIsPreviewing] = useState(false);
+
+  const editorRef = useRef(null);
   return (
     <Flex gap="50px" my="30px">
       {/* content */}
@@ -28,13 +34,45 @@ const Write = () => {
           />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
-        <Box h="300px">
-          <ReactQuill
-            theme="snow"
-            style={{ height: "100%", border: "none" }}
-            value={value}
-            onChange={setValue}
+        <Box>
+          <Editor
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue="<p>This is the initial content of the editor.</p>"
+            apiKey="d0fr27mlsmn34kv1hdqote8gat4i30z1jm9s0nbx255lyup8"
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "visualblocks code fullscreen",
+                "insertdatetime media table paste code help wordcount",
+              ],
+              toolbar:
+                "undo redo | formatselect | " +
+                "bold italic backcolor | alignleft aligncenter | " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help",
+            }}
           />
+          <Button
+            my={4}
+            rightIcon={isPreviewing ? <FiArrowUp /> : <FiArrowDown />}
+            onClick={() => setIsPreviewing((p) => !p)}
+          >
+            Preview
+          </Button>
+          {isPreviewing && (
+            <Box
+              bg="white"
+              h={100}
+              w="100%"
+              p={5}
+              borderRadius={10}
+              dangerouslySetInnerHTML={{
+                __html: editorRef.current.getContent(),
+              }}
+            ></Box>
+          )}
         </Box>
       </Box>
       {/* menu */}
