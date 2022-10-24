@@ -39,7 +39,7 @@ const Menu = () => {
       </Heading>
       {filterdPosts.map((post) => (
         
-        <Flex flexDir="column" gap="10px" mb="1rem">
+        <Flex key={post.id} flexDir="column" gap="10px" mb="1rem">
           <Box>
             <Image
               src={post.img}
