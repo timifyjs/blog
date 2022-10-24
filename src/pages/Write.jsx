@@ -61,7 +61,6 @@ const Write = () => {
             style={{
               cursor: "pointer",
               textDecoration: "underline",
-              cursor: "pointer",
             }}
           >
             Upload File
