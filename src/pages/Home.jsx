@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  Image,
-  Link,
-} from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
 import BlogArticle from "../Components/BlogArticle";
 const Home = () => {
   const posts = [
@@ -41,7 +32,7 @@ const Home = () => {
     <Box color="red.400" mt="10px" className="home">
       <Flex flexDir="column" className="post" mt="50px" gap="50px">
         {posts.map((post) => (
-          <BlogArticle post={post} />
+          <BlogArticle post={post} key={post.id} />
         ))}
       </Flex>
     </Box>
