@@ -10,7 +10,6 @@ import {
   Input,
   Radio,
 } from "@chakra-ui/react";
-import "react-quill/dist/quill.snow.css";
 import { Editor } from "@tinymce/tinymce-react";
 
 import "../index.css";
