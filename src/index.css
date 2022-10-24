@@ -11,3 +11,7 @@
   /* background: #f4f6f8; */
   /* for call to action buttons : #FF3030 */
 }
+
+.tox-statusbar__branding{
+  display: none;;
+}
