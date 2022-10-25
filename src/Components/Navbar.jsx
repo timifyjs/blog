@@ -30,7 +30,7 @@ const Navbar = () => {
         </Box>
         {/* right */}
         <Flex display={["none", "none", "flex", "flex"]}>
-          <Link to="#" p={2}>
+          <Link to="/" p={2}>
             <Button
               colorScheme="red"
               variant="ghost"
@@ -40,7 +40,7 @@ const Navbar = () => {
               Home
             </Button>
           </Link>
-          <Link to="#" p={2}>
+          <Link to="/saved" p={2}>
             <Button
               colorScheme="red"
               variant="ghost"
@@ -50,7 +50,7 @@ const Navbar = () => {
               Saved
             </Button>
           </Link>
-          <Link to="#" p={2}>
+          <Link to="/liked" p={2}>
             <Button
               colorScheme="red"
               variant="ghost"
@@ -60,7 +60,7 @@ const Navbar = () => {
               Liked
             </Button>
           </Link>
-          <Link to="#" p={2}>
+          <Link to="/write" p={2}>
             <Button
               colorScheme="red"
               variant="ghost"
@@ -121,7 +121,7 @@ const Navbar = () => {
               align="center"
               display={["flex", "flex", "none", "none"]}
             >
-              <Link to="#" p={2}>
+              <Link to="/" p={2}>
                 <Button
                   mt="10px"
                   fontSize="1.2rem"
@@ -132,7 +132,7 @@ const Navbar = () => {
                   Home
                 </Button>
               </Link>
-              <Link to="#" p={2}>
+              <Link to="/saved" p={2}>
                 <Button
                   mt="10px"
                   fontSize="1.2rem"
@@ -143,7 +143,7 @@ const Navbar = () => {
                   Saved
                 </Button>
               </Link>
-              <Link to="#" p={2}>
+              <Link to="/liked" p={2}>
                 <Button
                   mt="10px"
                   fontSize="1.2rem"
@@ -154,7 +154,7 @@ const Navbar = () => {
                   Liked
                 </Button>
               </Link>
-              <Link to="#" p={2}>
+              <Link to="/write" p={2}>
                 <Button
                   mt="10px"
                   fontSize="1.2rem"
