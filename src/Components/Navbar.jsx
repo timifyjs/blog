@@ -26,7 +26,9 @@ const Navbar = () => {
       <Flex justify="space-between" align="center" py={4}>
         {/* left */}
         <Box>
-          <Heading as="h1">Logo</Heading>
+          <Link to="/">
+            <Heading as="h1">Logo</Heading>
+          </Link>
         </Box>
         {/* right */}
         <Flex display={["none", "none", "flex", "flex"]}>
