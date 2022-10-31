@@ -27,21 +27,27 @@ import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 
 const Write = () => {
   const [isPreviewing, setIsPreviewing] = useState(false);
-  const [category, setCategory] = useState('')
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [category, setCategory] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const editorRef = useRef(null);
   return (
     <>
-      <Flex gap="50px" my="30px">
+      <Flex gap="50px" my="30px" flexDir={{ base: "column", md: "row" }}>
         {/* content */}
-        <Box w="70%" display="flex" flexDir="column" gap={6}>
+        <Box
+          w={{ base: "95%", md: "70%" }}
+          mx="auto"
+          display="flex"
+          flexDir="column"
+          gap={6}
+        >
           <FormControl isRequired>
             <FormLabel>Post Title</FormLabel>
             <Input
               variant="filled"
               placeholder="Enter Title here"
-            // w={{ base: "100%", md: "70%", lg: "50%" }}
+              // w={{ base: "100%", md: "70%", lg: "50%" }}
             />
             {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
           </FormControl>
@@ -75,7 +81,12 @@ const Write = () => {
           </Box>
         </Box>
         {/* menu */}
-        <Flex flexDir="column" gap="15px" w="30%">
+        <Flex
+          flexDir={{ base: "column-reverse", md: "column" }}
+          mx="auto"
+          gap="15px"
+          w={{ base: "95%", md: "30%" }}
+        >
           <Box
             display="flex"
             flexDir="column"
@@ -84,7 +95,7 @@ const Write = () => {
             border="1px solid gray"
           >
             <Heading fontSize="24px" as="h1">
-              Publish{" "}
+              Publish
             </Heading>
             <Box as="span">
               <b>Status : </b> Draft
@@ -116,31 +127,35 @@ const Write = () => {
               Category | Tags
             </Heading>
             <RadioGroup onChange={setCategory} value={category}>
-                <Radio value="art">Art</Radio>
-                <Radio value="science">Science</Radio>
-                <Radio value="tech">Technology</Radio>
-                <Radio value="food">Food</Radio>
-                <Radio value="design">Design</Radio>
+              <Radio value="art" mr={3}>
+                Art
+              </Radio>
+              <Radio value="science" mr={3}>
+                Science
+              </Radio>
+              <Radio value="tech" mr={3}>
+                Technology
+              </Radio>
+              <Radio value="food" mr={3}>
+                Food
+              </Radio>
+              <Radio value="design" mr={3}>
+                Design
+              </Radio>
             </RadioGroup>
           </Flex>
         </Flex>
       </Flex>
-      {isOpen &&
-        <Modal isOpen={isOpen} onClose={onClose}
-        >
-          <ModalOverlay style={{ backdropFilter: 'blur(2px)' }} />
-          <ModalContent
-            w="90vw"
-            h={'80vh'}
-            maxW={'6xl'}
-          >
+      {isOpen && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay style={{ backdropFilter: "blur(2px)" }} />
+          <ModalContent w="90vw" h={"80vh"} maxW={"6xl"}>
             <ModalHeader>Blog Preview</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Box
                 bg="white"
                 h={100}
-
                 p={5}
                 borderRadius={10}
                 dangerouslySetInnerHTML={{
@@ -150,11 +165,13 @@ const Write = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Button variant='ghost' onClick={onClose}>Close</Button>
+              <Button variant="ghost" onClick={onClose}>
+                Close
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
-      }
+      )}
     </>
   );
 };
