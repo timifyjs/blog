@@ -17,25 +17,38 @@ import {
   AlertIcon,
   AlertDescription,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+  const [err, setError] = useState(null);
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
   });
-  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
   const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
+  // console.log(inputs);
 
   const handleSubmit = async (e) => {
+    console.log(inputs);
     e.preventDefault();
     try {
-      await login(inputs);
+      const res = await axios.post(
+        "http://localhost:8800/api/auth/login",
+        inputs
+      );
       navigate("/");
+      console.log(res);
     } catch (err) {
       setError(err.response.data);
+      console.log(err);
     }
   };
 
@@ -66,11 +79,12 @@ const Login = () => {
           </Alert>
         )}
         <FormControl isRequired>
-          <FormLabel>Email address</FormLabel>
+          <FormLabel>Username</FormLabel>
           <Input
             variant="filled"
             placeholder="Enter valid e-mail"
             onChange={handleChange}
+            name="username"
           />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
@@ -83,6 +97,7 @@ const Login = () => {
               placeholder="Enter password"
               variant="filled"
               onChange={handleChange}
+              name="password"
             />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={handleClick}>

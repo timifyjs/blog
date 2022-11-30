@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -31,6 +31,7 @@ const Register = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setInputs((prev) => ({
       ...prev,
@@ -47,6 +48,7 @@ const Register = () => {
         "http://localhost:8800/api/auth/register",
         inputs
       );
+      navigate("/login");
       console.log(res);
     } catch (err) {
       setError(err.response.data);
