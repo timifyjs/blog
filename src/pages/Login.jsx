@@ -13,10 +13,32 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+  const [err, setError] = useState(null);
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   return (
@@ -37,9 +59,19 @@ const Login = () => {
           <Heading>Login</Heading>
           <Text>Enter your email and password for Login</Text>
         </VStack>
+        {err && (
+          <Alert status="error" variant="left-accent">
+            <AlertIcon />
+            <AlertDescription>{err}</AlertDescription>
+          </Alert>
+        )}
         <FormControl isRequired>
           <FormLabel>Email address</FormLabel>
-          <Input variant="filled" placeholder="Enter valid e-mail" />
+          <Input
+            variant="filled"
+            placeholder="Enter valid e-mail"
+            onChange={handleChange}
+          />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
         <FormControl isRequired>
@@ -50,6 +82,7 @@ const Login = () => {
               type={show ? "text" : "password"}
               placeholder="Enter password"
               variant="filled"
+              onChange={handleChange}
             />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -65,6 +98,7 @@ const Login = () => {
           variant="solid"
           w="full"
           mt="20px"
+          onClick={handleSubmit}
         >
           Login
         </Button>
