@@ -18,7 +18,8 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [err, setError] = useState(null);
@@ -28,6 +29,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const handleChange = (e) => {
     setInputs((prev) => ({
       ...prev,
@@ -40,14 +42,11 @@ const Login = () => {
     console.log(inputs);
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:8800/api/auth/login",
-        inputs
-      );
+      await login(inputs);
       navigate("/");
-      console.log(res);
+      // console.log(res);
     } catch (err) {
-      setError(err.response.data);
+      setError(err.response?.data);
       console.log(err);
     }
   };
@@ -82,7 +81,7 @@ const Login = () => {
           <FormLabel>Username</FormLabel>
           <Input
             variant="filled"
-            placeholder="Enter valid e-mail"
+            placeholder="Enter your username"
             onChange={handleChange}
             name="username"
           />
