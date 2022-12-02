@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import {
   FormControl,
@@ -14,11 +15,47 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 
 const Register = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
+  const [err, setError] = useState(null);
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  // console.log(inputs);
+
+  const handleSubmit = async (e) => {
+    console.log(inputs);
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:8800/api/auth/register",
+        inputs
+      );
+      navigate("/login");
+      console.log(res);
+    } catch (err) {
+      setError(err.response.data);
+      console.log(err);
+    }
+  };
+
   return (
     <Box
       w={["full", "md"]}
@@ -37,14 +74,32 @@ const Register = () => {
           <Heading>Register</Heading>
           <Text>Let's create an Account</Text>
         </VStack>
+        {/* error */}
+        {err && (
+          <Alert status="error" variant="left-accent">
+            <AlertIcon />
+            <AlertDescription>{err}</AlertDescription>
+          </Alert>
+        )}
+        {/* form */}
         <FormControl isRequired>
           <FormLabel>Username</FormLabel>
-          <Input variant="filled" placeholder="Enter username" />
+          <Input
+            variant="filled"
+            placeholder="Enter username"
+            onChange={handleChange}
+            name="username"
+          />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Email address</FormLabel>
-          <Input variant="filled" placeholder="Enter valid e-mail" />
+          <Input
+            variant="filled"
+            placeholder="Enter valid e-mail"
+            onChange={handleChange}
+            name="email"
+          />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
         <FormControl isRequired>
@@ -55,6 +110,8 @@ const Register = () => {
               type={show ? "text" : "password"}
               placeholder="Enter password"
               variant="filled"
+              onChange={handleChange}
+              name="password"
             />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -70,6 +127,7 @@ const Register = () => {
           variant="solid"
           w="full"
           mt="20px"
+          onClick={handleSubmit}
         >
           Register
         </Button>

@@ -17,10 +17,13 @@ import { BsBookmarkPlus, BsFillHeartFill } from "react-icons/bs";
 import { FiEdit2, FiHome } from "react-icons/fi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsXLg } from "react-icons/bs";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = useState("right");
+  const { currentUser, logout } = useContext(AuthContext);
   return (
     <>
       <Flex justify="space-between" align="center" py={4}>
@@ -72,16 +75,32 @@ const Navbar = () => {
               Write
             </Button>
           </Link>
-          <Link to="/login">
-            <Button ml="1rem" variant="outline" colorScheme="red">
-              Login
+          <Box
+            as="span"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="18px"
+            py={["0px"]}
+          >
+            {currentUser?.username}
+          </Box>
+          {currentUser ? (
+            <Button
+              onClick={logout}
+              ml="1rem"
+              variant="outline"
+              colorScheme="red"
+            >
+              <Link to="/login">Logout</Link>
             </Button>
-          </Link>
-          <Link to="/register">
-            <Button colorScheme="green" ml="1rem">
-              Register
-            </Button>
-          </Link>
+          ) : (
+            <Link to="/login">
+              <Button ml="1rem" variant="outline" colorScheme="red">
+                Logout
+              </Button>
+            </Link>
+          )}
           <IconButton
             aria-label="Open Menu"
             size="lg"
@@ -167,16 +186,32 @@ const Navbar = () => {
                   Write
                 </Button>
               </Link>
-              <Link to="/login">
-                <Button ml="1rem" variant="outline" mt="1rem" colorScheme="red">
-                  Login
+              <Box
+                as="span"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                fontSize="18px"
+                py={["12px", "0px", "0px", "0px"]}
+              >
+                {currentUser?.username}
+              </Box>
+              {currentUser ? (
+                <Button
+                  onClick={logout}
+                  ml="1rem"
+                  variant="outline"
+                  colorScheme="red"
+                >
+                  <Link to="/login">Logout</Link>
                 </Button>
-              </Link>
-              <Link to="/register">
-                <Button mt="1rem" colorScheme="green" ml="1rem">
-                  Register
-                </Button>
-              </Link>
+              ) : (
+                <Link to="/login">
+                  <Button ml="1rem" variant="outline" colorScheme="red">
+                    Logout
+                  </Button>
+                </Link>
+              )}
             </Flex>
           </DrawerBody>
         </DrawerContent>

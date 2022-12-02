@@ -13,10 +13,44 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const [err, setError] = useState(null);
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const handleChange = (e) => {
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  // console.log(inputs);
+
+  const handleSubmit = async (e) => {
+    console.log(inputs);
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate("/");
+      // console.log(res);
+    } catch (err) {
+      setError(err.response?.data);
+      console.log(err);
+    }
+  };
+
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   return (
@@ -37,9 +71,20 @@ const Login = () => {
           <Heading>Login</Heading>
           <Text>Enter your email and password for Login</Text>
         </VStack>
+        {err && (
+          <Alert status="error" variant="left-accent">
+            <AlertIcon />
+            <AlertDescription>{err}</AlertDescription>
+          </Alert>
+        )}
         <FormControl isRequired>
-          <FormLabel>Email address</FormLabel>
-          <Input variant="filled" placeholder="Enter valid e-mail" />
+          <FormLabel>Username</FormLabel>
+          <Input
+            variant="filled"
+            placeholder="Enter your username"
+            onChange={handleChange}
+            name="username"
+          />
           {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         </FormControl>
         <FormControl isRequired>
@@ -50,6 +95,8 @@ const Login = () => {
               type={show ? "text" : "password"}
               placeholder="Enter password"
               variant="filled"
+              onChange={handleChange}
+              name="password"
             />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -65,6 +112,7 @@ const Login = () => {
           variant="solid"
           w="full"
           mt="20px"
+          onClick={handleSubmit}
         >
           Login
         </Button>
