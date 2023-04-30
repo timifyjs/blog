@@ -36,15 +36,11 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  // console.log(inputs);
-
   const handleSubmit = async (e) => {
-    console.log(inputs);
     e.preventDefault();
     try {
       await login(inputs);
       navigate("/");
-      // console.log(res);
     } catch (err) {
       setError(err.response?.data);
       console.log(err);

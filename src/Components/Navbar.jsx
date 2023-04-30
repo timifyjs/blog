@@ -97,7 +97,7 @@ const Navbar = () => {
           ) : (
             <Link to="/login">
               <Button ml="1rem" variant="outline" colorScheme="red">
-                Logout
+                Login
               </Button>
             </Link>
           )}
